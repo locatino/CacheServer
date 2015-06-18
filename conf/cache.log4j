@@ -1,0 +1,13 @@
+log4j.rootCategory=info
+
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%5p [%t] (%F:%L) - %m%n 
+
+log4j.logger.com.locatino=debug,cacher
+
+log4j.appender.cacher=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.cacher.File=../log/cacherServer.log
+log4j.appender.cacher.DatePattern='.'yyyy-MM-dd
+log4j.appender.cacher.layout=org.apache.log4j.PatternLayout
+log4j.appender.cacher.layout.ConversionPattern=%d %p %t %c - %m%n
