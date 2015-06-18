@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/util 
+        http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+	<bean id="server" class="com.eastcom.server.DbCacheServer"  init-method="init">
+	</bean>
+	
+	<!-- fmv6 db -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@10.199.145.34:1521:kaas" />
+		<property name="username" value="fm" />
+		<property name="password" value="fm#13900" />
+	</bean>
+
+        <bean id="cacheDataSource" class="org.apache.commons.dbcp.BasicDataSource">             
+                <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
+                <property name="url" value="jdbc:hsqldb:mem:fmcache; sql.syntax_ora=true"/>
+                <property name="username" value="sa"/>
+                <property name="password" value=""/>
+        </bean>
+        
+        <bean id="cacheDatabase" class="com.eastcom.cacher.CacheDatabase">
+                <constructor-arg index="0" ref="dataSource"/>
+                <constructor-arg index="1" ref="cacheDataSource"/>
+                <constructor-arg index="2">                                     
+                        <value>                         
+                                <![CDATA[
+										DROP TABLE V_FM_RTRECORD_HAINAN_HIS IF EXISTS;
+										CREATE TABLE V_FM_RTRECORD_HAINAN_HIS(
+										RECORD_ID		INT NOT NULL,
+										EVENT_ID		VARCHAR(256) NULL,  
+										CHILD_EVENT_ID		VARCHAR(256) NULL,
+										RECORD_TYPE		INT NULL,
+										OCCUR_TIME		TIMESTAMP NULL,
+										COLLECT_TIME		TIMESTAMP NULL,
+										START_TIME		TIMESTAMP NULL,
+										LAST_TIME		TIMESTAMP NULL,
+										COUNTS		INT NULL,
+										SEVERITY		INT NULL,
+										FACILITY		INT NULL,
+										TITLE		VARCHAR(256) NULL,
+										ALARM_DESCR		VARCHAR(512) NULL,
+										CONTEXT		VARCHAR(2048) NULL,
+										KEY_VALUE		VARCHAR(1024) NULL,
+										PARENT_ID		INT NULL,
+										IS_INHERIT		INT NULL,
+										HAS_CHILDREN		INT NULL,
+										INHERIT_TYPE		INT NULL,
+										ACK_TAG		INT NULL,
+										ACK_USER		VARCHAR(64) NULL,
+										ACK_TIME		TIMESTAMP NULL,
+										CLEAR_TAG		INT NULL,
+										CLEAR_USER		VARCHAR(64) NULL,
+										CLEAR_TIME		TIMESTAMP NULL,
+										DISPATCH_TAG			INT NULL,
+										DISPATCH_USER		VARCHAR(64) NULL,
+										DISPATCH_TIME		TIMESTAMP NULL,
+										ISOLATE_TAG			INT NULL,
+										ISOLATE_TIME			TIMESTAMP NULL,
+										ISOLATE_USER			VARCHAR(64) NULL,
+										HANGUP_TAG			INT NULL,
+										HANGUP_TIME			TIMESTAMP NULL,
+										HANGUP_USER			VARCHAR(64) NULL,
+										PREDEAL_TAG			INT NULL,
+										PREDEAL_USER			VARCHAR(64) NULL,
+										PREDEAL_TIME			TIMESTAMP NULL,
+										ORDER_ID			VARCHAR(64) NULL,
+										DISPATCH_POLICY_ID		VARCHAR(64) NULL,
+										ORDER_STATUS		VARCHAR(64) NULL,
+										PREDEAL_POLICY_ID			VARCHAR(64) NULL,
+										PREDEAL_POLICY_NAME			VARCHAR(64) NULL,
+										PREDEAL_RESULT			VARCHAR(512) NULL,
+										REMARK				VARCHAR(512) NULL,
+										DEVICE_ID			VARCHAR(64) NULL,
+										DEVICE_NAME			VARCHAR(256) NULL,
+										DEVICE_ALIAS			VARCHAR(256) NULL,
+										IPADDRESS			VARCHAR(64) NULL,
+										DEVICE_DESCR				VARCHAR(512) NULL,
+										VENDOR				VARCHAR(256) NULL,
+										MODEL				VARCHAR(256) NULL,
+										SERVICE				VARCHAR(256) NULL,
+										STATUS					VARCHAR(64) NULL,
+										LIFE_CYCLE			VARCHAR(64) NULL,
+										PROVINCE				VARCHAR(64) NULL,
+										CITY				VARCHAR(64) NULL,
+										SUB_ID				VARCHAR(64) NULL,
+										SUB_NAME			VARCHAR(256) NULL,
+										SUB_ALIAS				VARCHAR(256) NULL,
+										RESOURCE_TYPE			INT NULL,
+										RESOURCE_NMS_STATUS			INT NULL,
+										SOURCE_INFO				VARCHAR(2048) NULL,
+										NE_TYPE				VARCHAR(128) NULL,
+										IMPACT_PRODUCT				VARCHAR(1024) NULL,
+										IMPACT_CUSTOMER				VARCHAR(2048) NULL,
+										CONSTRAINT PK_V_FM_RTRECORD_HAINAN_HIS PRIMARY KEY(RECORD_ID)
+										);
+										
+										
+                                        ]]>
+                        </value>
+                </constructor-arg>
+        </bean>
+
+</beans>
