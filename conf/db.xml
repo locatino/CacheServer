@@ -6,7 +6,7 @@
 		http://www.springframework.org/schema/util 
         http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
-	<bean id="server" class="com.eastcom.server.DbCacheServer"  init-method="init">
+	<bean id="server" class="com.locatino.server.DbCacheServer"  init-method="init">
 	</bean>
 	
 	<!-- fmv6 db -->
@@ -25,7 +25,7 @@
                 <property name="password" value=""/>
         </bean>
         
-        <bean id="cacheDatabase" class="com.eastcom.cacher.CacheDatabase">
+        <bean id="cacheDatabase" class="com.locatino.cacher.CacheDatabase">
                 <constructor-arg index="0" ref="dataSource"/>
                 <constructor-arg index="1" ref="cacheDataSource"/>
                 <constructor-arg index="2">                                     
